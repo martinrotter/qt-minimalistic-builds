@@ -10,20 +10,20 @@ _variant=-shared
 _build_mode=-debug-and-release
 
 # Tune the following to decide how and what to build
-_with_icu=yes
-_with_fontconfig=yes
+_with_icu=no
+_with_fontconfig=no
 _with_openssl=yes
-_with_dbus=yes
-_system_freetype=yes
+_with_dbus=no
+_system_freetype=no
 _system_zlib=yes
 _system_pcre=yes
 _system_libpng=yes
 _system_libjpeg=yes
 _system_harfbuzz=yes
-_build_examples=yes
+_build_examples=no
 _build_tools=yes
-_build_tests=yes
-_make_docs=yes
+_build_tests=no
+_make_docs=no
 
 # Getting crashes that only happen in release builds?
 # Define this and you may have a hope of figuring out
@@ -548,7 +548,33 @@ build() {
     "${_extra_libs[@]}" \
     -no-iconv \
     -dbus \
-    -no-gstreamer \
+    -skip qt3d \
+    -skip qtactiveqt \
+    -skip qtcanvas3d \
+    -skip qtconnectivity \
+    -skip qtdeclarative \
+    -skip qtdatavis3d \
+    -skip qtdoc \
+    -skip qtgamepad \
+    -skip qtcharts \
+    -skip qtgraphicaleffects \
+    -skip qtlocation \
+    -skip qtmultimedia \
+    -skip qtnetworkauth \
+    -skip qtpurchasing \
+    -skip qtquickcontrols \
+    -skip qtquickcontrols2 \
+    -skip qtremoteobjects \
+    -skip qtscxml \
+    -skip qtsensors \
+    -skip qtserialbus \
+    -skip qtserialport \
+    -skip qtspeech \
+    -skip qtvirtualkeyboard \
+    -skip qtwebglplugin \
+    -skip qtwebchannel \
+    -skip qtwebsockets \
+    -skip qtwebview \
     "${_extra_config[@]}" \
     "${_sql_config[@]}" \
     "${configure_opts[@]}"
@@ -575,7 +601,7 @@ build() {
   # There is a race condition / dependency problem with libqtiff and dumpdoc.exe which
   # can happen at -j9 so make twice (dumpdoc.exe depends on libqtiff but can get built
   # first).
-  ${_make} ${MAKEFLAGS} || ${_make} ${MAKEFLAGS}
+  ${_make} ${MAKEFLAGS} -j2 || ${_make} ${MAKEFLAGS} -j2
   # For quicker turn-around testing qtwebengine.
   # ${_make} module-qtbase
   # ${_make} module-qtwebengine
