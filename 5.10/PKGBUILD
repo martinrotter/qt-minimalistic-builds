@@ -601,7 +601,7 @@ build() {
   # There is a race condition / dependency problem with libqtiff and dumpdoc.exe which
   # can happen at -j9 so make twice (dumpdoc.exe depends on libqtiff but can get built
   # first).
-  ${_make} ${MAKEFLAGS} -j2 || ${_make} ${MAKEFLAGS} -j2
+  ${_make} ${MAKEFLAGS} -j3 || ${_make} ${MAKEFLAGS} -j3 || ${_make} ${MAKEFLAGS} -j3
   # For quicker turn-around testing qtwebengine.
   # ${_make} module-qtbase
   # ${_make} module-qtwebengine

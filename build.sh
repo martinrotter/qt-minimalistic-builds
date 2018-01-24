@@ -6,7 +6,8 @@ TARGET_FOLDER="qt-${VERSION}-${TYPE}-mingw-w64-x86_64"
 
 # Build initial dynamic package.
 cd "$VERSION"
-makepkg -sL
+rm -rf ./bin ./pkg ./src ./$TARGET_FOLDER ./Qt5* ./*log
+makepkg -sLf
 
 # Copy all package stuff from "pkg" subfolder.
 mkdir "$TARGET_FOLDER"
