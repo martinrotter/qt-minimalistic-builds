@@ -11,7 +11,7 @@ makepkg -sLf
 
 # Copy all package stuff from "pkg" subfolder.
 mkdir "$TARGET_FOLDER"
-mv ./pkg/mingw64/* "./$TARGET_FOLDER"
+mv ./pkg/mingw-w64-x86_64-qt5/mingw64/* "./$TARGET_FOLDER"
 
 # Copy all dependencies.
 echo "c:\\msys64\\mingw64\\" > "qt_paths.txt"
@@ -29,8 +29,8 @@ do
 done
 
 # Deploy dependent DLLs.
-cp ./bin/* "$TARGET_FOLDER" -v
-cp ../tools/qtbinpatcher.exe "$TARGET_FOLDER" -v
+cp ./bin/* "$TARGET_FOLDER/bin" -v
+cp ../tools/qtbinpatcher.exe "$TARGET_FOLDER/bin" -v
 
 # Create archive.
 ../tools/7za a -t7z "$TARGET_FOLDER.7z" "./$TARGET_FOLDER" -mmt -mx9
