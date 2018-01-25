@@ -14,7 +14,8 @@ Well, there are some differences:
 * **some features and modules are disabled**, which makes dependency tree smaller (details are specified in description of each release),
 * distribution is relocatable (via `qtbinpatcher.exe`) and coinstallable with original MSYS2 Qt 5 packages,
 * debug/release builds are available,
-* static/dynamic builds are available.
+* static/dynamic builds are available,
+* allmost all 3rd-party libs used by Qt are compiled directly into libraries.
 
 ## How to use
 1. Install MinGW-w64 x64 compiler toolchain:
