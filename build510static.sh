@@ -17,4 +17,4 @@ mv ./pkg/mingw-w64-x86_64-qt5-static/mingw64/qt5-static/* "./$TARGET_FOLDER"
 cp ../tools/qtbinpatcher.exe "$TARGET_FOLDER/bin" -v
 
 # Create archive.
-../tools/7za a -tzip "$TARGET_FOLDER.zip" "./$TARGET_FOLDER" -mmt -mx9
+../tools/7za a -t7z "$TARGET_FOLDER.7z" "./$TARGET_FOLDER" -mmt -mx9

@@ -5,8 +5,6 @@ This projects aims to provide only x64 variant of Qt 5 library and its dependenc
 
 All original licenses of all used components (Qt, qtbinpatcher, MinGW-w64) are respected!!! Unmodified source code of Qt is used and the license of produced Qt binaries is the same as license used in original OSS Qt libraries.
 
-Note that there are also official [MSYS2 Qt packages](https://github.com/Alexpux/MINGW-packages). These differ from these packages. They are compiled with almost all features/modules enabled, thus are probably bigger and have more dependencies across themselves.
-
 **You can support me on [Liberapay](https://liberapay.com/martinrotter).**
 
 ## How this differs from official Qt Windows binaries?

@@ -33,4 +33,4 @@ cp ./bin/* "$TARGET_FOLDER/bin" -v
 cp ../tools/qtbinpatcher.exe "$TARGET_FOLDER/bin" -v
 
 # Create archive.
-../tools/7za a -tzip "$TARGET_FOLDER.zip" "./$TARGET_FOLDER" -mmt -mx9
+../tools/7za a -t7z "$TARGET_FOLDER.7z" "./$TARGET_FOLDER" -mmt -mx9
