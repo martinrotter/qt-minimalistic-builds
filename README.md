@@ -3,7 +3,7 @@ This is attempt to build Qt 5 libraries in minimalistic mode. Output binaries ha
 
 This projects aims to provide only x64 variant of Qt5 library and its dependencies. Both release and debug builds are provided.
 
-**All original licenses of all used components (Qt, qtbinpatcher, MinGW-w64, OpenSSL, MSVC) are respected!!! Unmodified source code of Qt is used and the license of produced Qt binaries is the same as license used in original OSS Qt libraries. The build phase of these prebuilt binaries is reproducible, see repository files for build scripts.**
+**All original licenses of all used components (Qt, qtbinpatcher, MinGW-w64, OpenSSL, MSVC) are respected with the additional exception that compiling, linking, and/or using OpenSSL is allowed. Unmodified source code of Qt is used and the license of produced Qt binaries is the same as license used in original OSS Qt libraries.  The build phase of these prebuilt binaries is reproducible, see repository files for build scripts.**
 
 **Used OpenSSL is taken from [here](https://www.npcglib.org/~stathis/blog/precompiled-openssl/).**
 
