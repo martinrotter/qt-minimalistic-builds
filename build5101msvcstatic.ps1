@@ -10,7 +10,7 @@ $qt_archive_file = $pwd.Path + "\qt.zip"
 $qt_src_base_folder = $pwd.Path + "\qt-everywhere-src-" + $version
 
 $tools_folder = $pwd.Path + "\tools\"
-$type = "dynamic"
+$type = "static-ltcg"
 $prefix_base_folder = "qt-" + $version + "-" + $type + "-msvc2017-x86_64"
 $prefix_folder = $pwd.Path + "\" + $prefix_base_folder
 $build_folder = $pwd.Path + "\qtbuild"
@@ -21,7 +21,6 @@ $build_folder = $pwd.Path + "\qtbuild"
 $openssl_base_folder = "C:\openssl"
 $openssl_include_folder = $openssl_base_folder + "\include64"
 $openssl_libs_folder = $openssl_base_folder + "\lib64"
-$openssl_bin_folder = $openssl_base_folder + "\bin"
 
 # Download Qt sources, unpack.
 Invoke-WebRequest -Uri $qt_sources_url -OutFile $qt_archive_file
@@ -31,7 +30,7 @@ Invoke-WebRequest -Uri $qt_sources_url -OutFile $qt_archive_file
 mkdir $build_folder
 cd $build_folder
 
-& "$qt_src_base_folder\configure.bat" -debug-and-release -opensource -confirm-license -platform win32-msvc2017 -opengl desktop -no-qml-debug -no-iconv -no-dbus -no-icu -no-fontconfig -no-freetype -qt-harfbuzz -nomake examples -nomake tests -skip qt3d -skip qtactiveqt -skip qtcanvas3d -skip qtconnectivity -skip qtdeclarative -skip qtdatavis3d -skip qtdoc -skip qtgamepad -skip qtcharts -skip qtgraphicaleffects -skip qtlocation -skip qtmultimedia -skip qtnetworkauth -skip qtpurchasing -skip qtquickcontrols -skip qtquickcontrols2 -skip qtremoteobjects -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwebchannel -skip qtwebengine -skip qtwebsockets -skip qtwebview -skip qtscript -mp -optimize-size -shared -prefix $prefix_folder -openssl -openssl-linked -I $openssl_include_folder -L $openssl_libs_folder OPENSSL_LIBS="-lUser32 -lAdvapi32 -lGdi32 -llibeay32MD -lssleay32MD"
+& "$qt_src_base_folder\configure.bat" -debug-and-release -opensource -confirm-license -platform win32-msvc2017 -opengl desktop -no-qml-debug -no-iconv -no-dbus -no-icu -no-fontconfig -no-freetype -qt-harfbuzz -nomake examples -nomake tests -skip qt3d -skip qtactiveqt -skip qtcanvas3d -skip qtconnectivity -skip qtdeclarative -skip qtdatavis3d -skip qtdoc -skip qtgamepad -skip qtcharts -skip qtgraphicaleffects -skip qtlocation -skip qtmultimedia -skip qtnetworkauth -skip qtpurchasing -skip qtquickcontrols -skip qtquickcontrols2 -skip qtremoteobjects -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwebchannel -skip qtwebengine -skip qtwebsockets -skip qtwebview -skip qtscript -mp -optimize-size -D "JAS_DLL=0" -static -static-runtime -prefix $prefix_folder -ltcg -openssl -openssl-linked -I $openssl_include_folder -L $openssl_libs_folder OPENSSL_LIBS="-lUser32 -lAdvapi32 -lGdi32 -llibeay32MT -lssleay32MT"
 
 # Compile.
 & "$tools_folder\jom.exe"
@@ -39,7 +38,7 @@ nmake install
 
 # Copy qtbinpatcher, OpenSSL.
 cp "$tools_folder\qtbinpatcher.*" "$prefix_folder\bin\"
-cp "$openssl_bin_folder\*eay32MD.dll" "$prefix_folder\bin\"
+cp "$openssl_libs_folder\*eay32MT.lib" "$prefix_folder\lib\"
 
 # Fixup OpenSSL DLL paths.
 gci -r -include "*.prl" $prefix_folder | foreach-object { $a = $_.fullname; ( get-content $a ) | foreach-object { $_ -replace "C:\\\\openssl\\\\lib64", '$$$$[QT_INSTALL_LIBS]\\' } | set-content $a }
