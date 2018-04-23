@@ -24,7 +24,7 @@ $openssl_libs_folder = $openssl_base_folder + "\lib64"
 
 # Download Qt sources, unpack.
 Invoke-WebRequest -Uri $qt_sources_url -OutFile $qt_archive_file
-& "$tools_folder\7za.eexe" x $qt_archive_file
+& "$tools_folder\7za.exe" x $qt_archive_file
 
 # Configure.
 mkdir $build_folder
