@@ -9,43 +9,23 @@ _variant=-shared
 # The way Qt5 libraries are built. Possible values are '-release', '-debug' or '-debug-and-release'
 _build_mode=-debug-and-release
 
-# Tune the following to decide how and what to build
-if [ "${_variant}" = "-static" ]; then
-  _namesuff="-static"
-  _with_icu=no
-  _with_fontconfig=no
-  _with_openssl=yes
-  _with_dbus=yes
-  _system_freetype=no
-  _system_zlib=no
-  _system_pcre=no
-  _system_libpng=no
-  _system_libjpeg=no
-  _system_harfbuzz=no
-  _build_examples=no # examples result in > 100 GiB
-  _build_tools=yes
-  _build_tests=yes
-  _make_docs=no # docs in shared qt5 are sufficient
+_namesuff="-static"
+_with_icu=no
+_with_fontconfig=no
+_with_openssl=yes
+_with_dbus=no
+_system_freetype=no
+_system_zlib=no
+_system_pcre=no
+_system_libpng=no
+_system_libjpeg=no
+_system_harfbuzz=no
+_build_examples=no
+_build_tools=yes
+_build_tests=no
+_make_docs=no
 #  _ltcg="yes"
-  _ltcg="no"
-else
-  _namesuff=
-  _with_icu=yes
-  _with_fontconfig=yes
-  _with_openssl=yes
-  _with_dbus=yes
-  _system_freetype=yes
-  _system_zlib=yes
-  _system_pcre=yes
-  _system_libpng=yes
-  _system_libjpeg=yes
-  _system_harfbuzz=yes
-  _build_examples=yes
-  _build_tools=yes
-  _build_tests=yes
-  _make_docs=yes
-  _ltcg=no
-fi
+_ltcg="no"
 
 # Getting crashes that only happen in release builds?
 # Define this and you may have a hope of figuring out
@@ -562,6 +542,35 @@ build() {
     "${_extra_libs[@]}" \
     -no-iconv \
     -no-gstreamer \
+    -no-iconv \
+    -dbus \
+    -skip qt3d \
+    -skip qtactiveqt \
+    -skip qtcanvas3d \
+    -skip qtconnectivity \
+    -skip qtdeclarative \
+    -skip qtdatavis3d \
+    -skip qtdoc \
+    -skip qtgamepad \
+    -skip qtcharts \
+    -skip qtgraphicaleffects \
+    -skip qtlocation \
+    -skip qtmultimedia \
+    -skip qtnetworkauth \
+    -skip qtpurchasing \
+    -skip qtquickcontrols \
+    -skip qtquickcontrols2 \
+    -skip qtremoteobjects \
+    -skip qtscxml \
+    -skip qtsensors \
+    -skip qtserialbus \
+    -skip qtserialport \
+    -skip qtspeech \
+    -skip qtvirtualkeyboard \
+    -skip qtwebglplugin \
+    -skip qtwebchannel \
+    -skip qtwebsockets \
+    -skip qtwebview \
     "${_extra_config[@]}" \
     "${_sql_config[@]}" \
     "${configure_opts[@]}"
@@ -588,7 +597,7 @@ build() {
   # There is a race condition / dependency problem with libqtiff and dumpdoc.exe which
   # can happen at -j9 so make twice (dumpdoc.exe depends on libqtiff but can get built
   # first).
-  ${_make} ${MAKEFLAGS} || ${_make} ${MAKEFLAGS}
+  ${_make} ${MAKEFLAGS} -j2 || ${_make} ${MAKEFLAGS} -j2 || ${_make} ${MAKEFLAGS} -j2
   # For quicker turn-around testing qtwebengine.
   # ${_make} module-qtbase
   # ${_make} module-qtwebengine
