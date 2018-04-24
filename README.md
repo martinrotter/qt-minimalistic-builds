@@ -7,7 +7,7 @@ This projects aims to provide only x64 variant of Qt5 library and its dependenci
 
 **Used OpenSSL is taken from [here](https://www.npcglib.org/~stathis/blog/precompiled-openssl/).**
 
-**You can support me on [Liberapay](https://liberapay.com/martinrotter). You use this stuff on your own risk.**
+**You can donate to me [here](https://martinrotter.github.io/donate/). You use this stuff on your own risk.**
 
 ## How this differs from official Qt Windows binaries?
 Well, there are some differences:
