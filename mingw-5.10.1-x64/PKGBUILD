@@ -540,6 +540,7 @@ build() {
     "${_extra_incpaths[@]}" \
     "${_extra_libpaths[@]}" \
     "${_extra_libs[@]}" \
+    -optimize-size \
     -no-iconv \
     -dbus \
     -skip qt3d \
