@@ -541,8 +541,6 @@ build() {
     "${_extra_libpaths[@]}" \
     "${_extra_libs[@]}" \
     -no-iconv \
-    -no-gstreamer \
-    -no-iconv \
     -dbus \
     -skip qt3d \
     -skip qtactiveqt \
