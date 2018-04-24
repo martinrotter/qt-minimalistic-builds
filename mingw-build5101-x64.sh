@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="5.10"
+VERSION="5.10.1"
 TYPE="dynamic"
 TARGET_FOLDER="qt-${VERSION}-${TYPE}-mingw-w64-x86_64"
 
