@@ -21,7 +21,7 @@ $build_folder = $pwd.Path + "\qtbuild"
 $openssl_base_folder = "C:\openssl"
 $openssl_include_folder = $openssl_base_folder + "\include64"
 $openssl_libs_folder = $openssl_base_folder + "\lib64"
-$openssl_bin_folder = $openssl_base_folder + "\bin"
+$openssl_bin_folder = $openssl_base_folder + "\bin64"
 
 # Download Qt sources, unpack.
 Invoke-WebRequest -Uri $qt_sources_url -OutFile $qt_archive_file
