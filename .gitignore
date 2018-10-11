@@ -1,0 +1,7 @@
+# Qt source archives
+qt*.zip
+# Qt Build directories
+qtbuild/
+qtbuild-x86/
+# Qt source and install directories
+qt-*/
