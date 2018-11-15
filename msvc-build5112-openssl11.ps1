@@ -43,6 +43,8 @@ nmake install
 # Copy qtbinpatcher, OpenSSL.
 cp "$tools_folder\qtbinpatcher.*" "$prefix_folder\bin\"
 cp "$openssl_bin_folder\*MD.*" "$prefix_folder\bin\"
+cp "$openssl_libs_folder\*.*" "$prefix_folder\lib\"
+cp "$openssl_include_folder\openssl" "$prefix_folder\include\" -Recurse
 
 # Fixup OpenSSL DLL paths.
 gci -r -include "*.prl" $prefix_folder | foreach-object { $a = $_.fullname; ( get-content $a ) | foreach-object { $_ -replace "C:\\\\openssl11\\\\lib64", '$$$$[QT_INSTALL_LIBS]\\' } | set-content $a }
