@@ -43,6 +43,7 @@ nmake install
 # Copy qtbinpatcher, OpenSSL.
 cp "$tools_folder\qtbinpatcher.*" "$prefix_folder\bin\"
 cp "$openssl_bin_folder\*MD.*" "$prefix_folder\bin\"
+cp "$openssl_bin_folder\*.exe" "$prefix_folder\bin\"
 cp "$openssl_libs_folder\*.*" "$prefix_folder\lib\"
 cp "$openssl_include_folder\openssl" "$prefix_folder\include\" -Recurse
 
