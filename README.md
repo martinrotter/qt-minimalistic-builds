@@ -1,5 +1,5 @@
 # qt5-minimalistic-builds
-This is attempt to build Qt 5 libraries in minimalistic mode. Output binaries have fewer dependencies, are lighter and thus are smaller.
+This is attempt to build Qt 5 libraries in minimalistic mode. Output binaries have fewer dependencies, are lighter and thus smaller.
 
 This projects aims to provide only x64 variant of Qt5 library and its dependencies. Both release and debug builds are provided.
 
@@ -7,20 +7,18 @@ This projects aims to provide only x64 variant of Qt5 library and its dependenci
 
 **This project now uses manually compiled OpenSSL from latest official sources.**
 
-**You can donate to me [here](https://martinrotter.github.io/donate/). You use this stuff on your own risk.**
-
 ## How this differs from official Qt Windows binaries?
 Well, there are some differences:
 
-* these binaries are compiled with ~~MinGW-w64 or~~ **MSVC2017** toolchain with latest updates and are **x64**,
+* **all new builds are compiled including slimmed version of QtWebEngine !!!,**
+* these binaries are compiled with ~~MinGW-w64 or~~ **MSVC2019** toolchain with latest updates and are **x64**,
 * **some features and modules are disabled**, which makes dependency tree smaller (details are specified in description of each release),
 * distribution is relocatable (via `qtbinpatcher.exe`),
 * debug/release builds are available,
-* static/dynamic builds are available,
 * allmost all 3rd-party libs used by Qt are compiled directly into libraries,
-* link-time optimizations (`/LTCG`) are enabled in MSVC2017 static builds.
+* link-time optimizations (`/LTCG`) are enabled in MSVC2019 static builds.
 
 ## How to use
-1. Install Visual Studio 2017 or just Build Tools.
+1. Install Visual Studio 2019 or just Build Tools.
 1. Download [prebuilt Qt binaries](https://github.com/martinrotter/qt5-minimalistic-builds/releases) and unpack them to folder of your choice, for example `C:\Qt\XX`.
-1. Use command line to navigate to folder `C:\Qt\XX\bin` and run `qtbinpatcher.exe` and wait for it to finish its job. At this point, installation is complete and Qt library is ready for usage.
+1. Use command line to navigate to folder `C:\Qt\XX\bin` and run `qtbinpatcher.exe` and wait for it to finish its job. At this point, installation is complete and Qt library is ready for use.
