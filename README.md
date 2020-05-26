@@ -6,7 +6,7 @@ This is attempt to build Qt 5 libraries in minimalistic mode. Output binaries ha
 ## How this differs from official Qt Windows binaries?
 Well, there are some differences:
 
-* **all new builds are compiled including slimmed version of QtWebEngine !!!,**
+* **all new builds include slimmed version of QtWebEngine !!!,**
 * these binaries are compiled with ~~MinGW-w64 or~~ **MSVC2019** toolchain with latest updates and are **x64**,
 * **some features and modules are disabled**, which makes dependency tree smaller (details are specified in description of each release),
 * distribution is relocatable (via `qtbinpatcher.exe`),
