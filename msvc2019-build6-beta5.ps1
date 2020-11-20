@@ -54,7 +54,8 @@ $env:MYSQL_LIBS = "-llibmariadb"
 # Compile.
 #& "$tools_folder\jom.exe"
 cmake --build .
-cmake --install .
+cmake --install . --config Release
+cmake --install . --config Debug
 
 # Copy OpenSSL, MySQL.
 cp "$openssl_bin_folder\*.dll" "$prefix_folder\bin\"
@@ -67,8 +68,8 @@ cp "$mysql_lib_folder\libmaria*" "$prefix_folder\bin\"
 cp "$mysql_lib_folder\libmaria*" "$prefix_folder\lib\"
 
 # Fixup OpenSSL DLL paths and MySQL paths.
-$openssl_libs_folder_esc = $openssl_libs_folder -replace '\\','\\'
-$mysql_lib_folder_esc = $mysql_lib_folder -replace '\\','\\'
+#$openssl_libs_folder_esc = $openssl_libs_folder -replace '\\','\\'
+#$mysql_lib_folder_esc = $mysql_lib_folder -replace '\\','\\'
 
 #gci -r -include "*.prl" $prefix_folder | foreach-object { $a = $_.fullname; (get-content $a).Replace($openssl_libs_folder_esc, '$$$$[QT_INSTALL_LIBS]\\') | set-content $a }
 
