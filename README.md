@@ -1,6 +1,5 @@
 # qt-minimalistic-builds
-This is attempt to build Qt 
-/6 libraries in minimalistic mode. Output binaries have fewer dependencies, are lighter and thus smaller.
+This is attempt to build Qt 5/6 libraries in minimalistic mode. Output binaries have fewer dependencies, are lighter and thus smaller.
 
 [![Total downloads](https://img.shields.io/github/downloads/martinrotter/qt-minimalistic-builds/total.svg?maxAge=360)](https://somsubhra.com/github-release-stats/?username=martinrotter&repository=qt-minimalistic-builds&search=0)
 
