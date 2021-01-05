@@ -27,9 +27,15 @@ $openssl_include_folder = $openssl_base_folder + "\include"
 $openssl_libs_folder = $openssl_base_folder + "\lib"
 $openssl_bin_folder = $openssl_base_folder + "\bin"
 
-# MySQL
-$mysql_include_folder = "c:\Programy\MySQL\include"
-$mysql_lib_folder = "c:\Programy\MySQL\lib"
+# SQL.
+$mysql_include_folder = "c:\Programy\MariaDB\include"
+$mysql_lib_folder = "c:\Programy\MariaDB\lib"
+$mysql_lib = "$mysql_lib_folder\libmariadb.lib"
+
+$postgre_include_folder = "c:\Programy\PostgreSQL\include"
+$postgre_lib_folder = "c:\Programy\PostgreSQL\lib"
+$postgre_bin_folder = "c:\Programy\PostgreSQL\bin"
+$postgre_lib = "$postgre_lib_folder\libpq.lib"
 
 # Download Qt sources, unpack.
 $AllProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
@@ -44,14 +50,16 @@ cd $build_folder
 
 $env:OPENSSL_LIBS = "-lUser32 -lAdvapi32 -lGdi32 -llibcrypto -llibssl"
 
-& "$qt_src_base_folder\configure.bat" -cmake -debug-and-release -opensource -confirm-license -opengl desktop -no-dbus -no-icu -no-fontconfig -nomake examples -nomake tests -skip qt3d -skip qtactiveqt -skip qtcanvas3d -skip qtconnectivity -skip qtdatavis3d -skip qtdoc -skip qtgamepad -skip qtgraphicaleffects -skip qtlocation -skip qtnetworkauth -skip qtpurchasing -skip qtquickcontrols -skip qtquickcontrols2 -skip qtremoteobjects -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwebview -skip qtscript -mp -optimize-size -shared -prefix $prefix_folder -openssl-linked -DOPENSSL_ROOT_DIR="$openssl_base_folder" -- -DCMAKE_INCLUDE_PATH="$mysql_include_folder" -DCMAKE_LIBRARY_PATH="$mysql_lib_folder"
+# -DCMAKE_INCLUDE_PATH="$mysql_include_folder" -DCMAKE_LIBRARY_PATH="$mysql_lib_folder"
+
+& "$qt_src_base_folder\configure.bat" -cmake -debug-and-release -opensource -confirm-license -opengl desktop -no-dbus -no-icu -no-fontconfig -nomake examples -nomake tests -skip qt3d -skip qtactiveqt -skip qtcanvas3d -skip qtconnectivity -skip qtdatavis3d -skip qtdoc -skip qtgamepad -skip qtgraphicaleffects -skip qtlocation -skip qtnetworkauth -skip qtpurchasing -skip qtquickcontrols -skip qtquickcontrols2 -skip qtremoteobjects -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwebview -skip qtscript -mp -optimize-size -shared -prefix $prefix_folder -openssl-linked -DOPENSSL_ROOT_DIR="$openssl_base_folder" -- -DMySQL_INCLUDE_DIRS="$mysql_include_folder" -DMySQL_LIBRARIES="$mysql_lib" -DPostgreSQL_INCLUDE_DIRS="$postgre_include_folder" -DPostgreSQL_LIBRARY="$postgre_lib"
 
 # Compile.
 cmake --build .
 cmake --install . --config Release
 cmake --install . --config Debug
 
-# Copy OpenSSL, MySQL.
+# Copy libs.
 cp "$openssl_bin_folder\*.dll" "$prefix_folder\bin\"
 cp "$openssl_bin_folder\*.exe" "$prefix_folder\bin\"
 cp "$openssl_bin_folder\*.pdb" "$prefix_folder\bin\"
@@ -60,6 +68,11 @@ cp "$openssl_include_folder\openssl" "$prefix_folder\include\" -Recurse
 
 cp "$mysql_lib_folder\lib*.dll" "$prefix_folder\bin\"
 cp "$mysql_lib_folder\lib*.lib" "$prefix_folder\lib\"
+
+cp "$postgre_bin_folder\libpq.dll" "$prefix_folder\bin\"
+cp "$postgre_bin_folder\libintl-8.dll" "$prefix_folder\bin\"
+cp "$postgre_bin_folder\libiconv-2.dll" "$prefix_folder\bin\"
+cp "$postgre_lib_folder\libpq.lib" "$prefix_folder\lib\"
 
 # Create final archive.
 & "$tools_folder\7za.exe" a -t7z "${prefix_base_folder}.7z" "$prefix_folder" -mmt -mx9
