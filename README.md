@@ -1,7 +1,7 @@
 # qt-minimalistic-builds
 This is attempt to build Qt 5/6 libraries in minimalistic mode. Output binaries have fewer dependencies, are lighter and thus smaller.
 
-[![Total downloads](https://img.shields.io/github/downloads/martinrotter/qt-minimalistic-builds/total.svg?maxAge=360)](https://somsubhra.com/github-release-stats/?username=martinrotter&repository=qt-minimalistic-builds&search=0)
+[![Total downloads](https://img.shields.io/github/downloads/martinrotter/qt-minimalistic-builds/total.svg?maxAge=360)](https://somsubhra.github.io/github-release-stats/?username=martinrotter&repository=qt-minimalistic-builds&search=0)
 
 **All original licenses of all used components (Qt, qtbinpatcher, MinGW-w64, OpenSSL, MSVC) are respected with the additional exception that compiling, linking, and/or using OpenSSL is allowed. Unmodified source code of Qt is used and the license of produced Qt binaries is the same as license used in original OSS Qt libraries.  The build phase of these prebuilt binaries is reproducible, see repository files for build scripts.**
 
