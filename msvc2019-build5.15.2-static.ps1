@@ -39,14 +39,13 @@ Invoke-WebRequest -Uri $qt_sources_url -OutFile $qt_archive_file
 mkdir $build_folder
 cd $build_folder
 
-& "$qt_src_base_folder\configure.bat" -debug-and-release -opensource -confirm-license -platform win32-msvc2017 -opengl desktop -no-iconv -no-dbus -no-icu -no-fontconfig -no-freetype -qt-harfbuzz -qt-doubleconversion -nomake examples -nomake tests -skip qt3d -skip qtactiveqt -skip qtcanvas3d -skip qtconnectivity -skip qtdatavis3d -skip qtdoc -skip qtgamepad -skip qtgraphicaleffects -skip qtlocation -skip qtnetworkauth -skip qtpurchasing -skip qtquickcontrols -skip qtquickcontrols2 -skip qtremoteobjects -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwebview -skip qtscript -skip qtwebengine -mp -optimize-size -D "JAS_DLL=0" -static -feature-relocatable -ltcg -prefix $prefix_folder MYSQL_LIBS="-lAdvapi32 -lshlwapi -lWs2_32 -lmariadbclient" -openssl-linked -I $openssl_include_folder -L $openssl_libs_folder OPENSSL_LIBS="-lUser32 -lAdvapi32 -lGdi32 -lWS2_32 -lCRYPT32 -llibcrypto -llibssl"
+& "$qt_src_base_folder\configure.bat" -debug-and-release -opensource -confirm-license -platform win32-msvc2017 -opengl desktop -no-iconv -no-dbus -no-icu -no-fontconfig -no-freetype -qt-harfbuzz -qt-doubleconversion -nomake examples -nomake tests -skip qt3d -skip qtactiveqt -skip qtcanvas3d -skip qtconnectivity -skip qtdatavis3d -skip qtdoc -skip qtgamepad -skip qtgraphicaleffects -skip qtlocation -skip qtnetworkauth -skip qtpurchasing -skip qtquickcontrols -skip qtquickcontrols2 -skip qtremoteobjects -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwebview -skip qtscript -skip qtwebengine -mp -optimize-size -D "JAS_DLL=0" -static -feature-relocatable -ltcg -prefix $prefix_folder -openssl-linked -I $openssl_include_folder -L $openssl_libs_folder OPENSSL_LIBS="-lUser32 -lAdvapi32 -lGdi32 -lWS2_32 -lCRYPT32 -llibcrypto -llibssl"
 
 # Compile.
 nmake
 nmake install
 
 # Copy OpenSSL.
-cp "$tools_folder\qtbinpatcher.*" "$prefix_folder\bin\"
 cp "$openssl_libs_folder\*" "$prefix_folder\lib\" -Recurse
 cp "$openssl_include_folder\openssl" "$prefix_folder\include\" -Recurse
 
