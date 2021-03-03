@@ -40,6 +40,7 @@ $postgre_lib = "$postgre_lib_folder\libpq.lib"
 $AllProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
 [System.Net.ServicePointManager]::SecurityProtocol = $AllProtocols
 
+$ProgressPreference = 'SilentlyContinue'
 Invoke-WebRequest -Uri $qt_sources_url -OutFile $qt_archive_file
 & "$tools_folder\7za.exe" x $qt_archive_file
 
@@ -47,7 +48,7 @@ Invoke-WebRequest -Uri $qt_sources_url -OutFile $qt_archive_file
 mkdir $build_folder
 cd $build_folder
 
-& "$qt_src_base_folder\configure.bat" -debug-and-release -opensource -confirm-license -platform win32-msvc2017 -opengl desktop -no-iconv -no-dbus -no-fontconfig -no-freetype -qt-harfbuzz -qt-doubleconversion -nomake examples -nomake tests -skip qt3d -skip qtactiveqt -skip qtcanvas3d -skip qtconnectivity -skip qtdatavis3d -skip qtdoc -skip qtgamepad -skip qtgraphicaleffects -skip qtlocation -skip qtnetworkauth -skip qtpurchasing -skip qtquickcontrols -skip qtquickcontrols2 -skip qtremoteobjects -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwebview -skip qtscript -no-feature-webengine-v8-snapshot-support -no-feature-webengine-geolocation -no-feature-webengine-pepper-plugins -no-feature-webengine-printing-and-pdf -no-feature-webengine-webchannel -no-feature-webengine-proprietary-codecs -no-feature-webengine-kerberos -no-feature-webengine-spellchecker -no-feature-webengine-webrtc -no-feature-webengine-sanitizer -no-feature-webengine-ui-delegates -no-feature-webengine-testsupport -mp -optimize-size -shared -prefix $prefix_folder -openssl-linked -I $mysql_include_folder -L $mysql_lib_folder MYSQL_LIBS="-llibmariadb" -I $postgre_include_folder -L $postgre_lib_folder  -I $openssl_include_folder -L $openssl_libs_folder OPENSSL_LIBS="-lUser32 -lAdvapi32 -lGdi32 -llibcrypto -llibssl"
+& "$qt_src_base_folder\configure.bat" -no-iconv -no-dbus -no-fontconfig -no-freetype -qt-harfbuzz -qt-doubleconversion -nomake examples -nomake tests -skip qtactiveqt -skip qtcanvas3d -skip qtconnectivity -skip qtdatavis3d -skip qtdoc -skip qtgamepad -skip qtlocation -skip qtnetworkauth -skip qtpurchasing -skip qtremoteobjects -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwebview -skip qtscript -no-feature-webengine-v8-snapshot-support -no-feature-webengine-geolocation -no-feature-webengine-pepper-plugins -no-feature-webengine-printing-and-pdf -no-feature-webengine-webchannel -no-feature-webengine-proprietary-codecs -no-feature-webengine-kerberos -no-feature-webengine-spellchecker -no-feature-webengine-webrtc -no-feature-webengine-sanitizer -no-feature-webengine-ui-delegates -no-feature-webengine-testsupport -debug-and-release -opensource -confirm-license -platform win32-msvc2017 -opengl desktop  -mp -optimize-size -shared -prefix $prefix_folder -openssl-linked -I $mysql_include_folder -L $mysql_lib_folder MYSQL_LIBS="-llibmariadb" -I $postgre_include_folder -L $postgre_lib_folder  -I $openssl_include_folder -L $openssl_libs_folder OPENSSL_LIBS="-lUser32 -lAdvapi32 -lGdi32 -llibcrypto -llibssl"
 
 # Compile.
 nmake
