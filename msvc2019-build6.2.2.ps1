@@ -3,9 +3,9 @@
 # 3. cd to path of qt5-minimalistic-builds repo.
 
 $version_base = "6.2"
-$version = "6.2.0-beta3"
+$version = "6.2.2"
 
-$qt_sources_url = "https://download.qt.io/development_releases/qt/" + $version_base + "/" + $version + "/single/qt-everywhere-src-" + $version + ".zip"
+$qt_sources_url = "https://download.qt.io/official_releases/qt/" + $version_base + "/" + $version + "/single/qt-everywhere-src-" + $version + ".zip"
 $qt_archive_file = $pwd.Path + "\qt-" + $version + ".zip"
 $qt_src_base_folder = $pwd.Path + "\qt-everywhere-src-" + $version
 
