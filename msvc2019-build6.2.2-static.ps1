@@ -5,6 +5,7 @@
 $version_base = "6.2"
 $version = "6.2.2"
 
+$base_folder = $pwd.Path
 $qt_sources_url = "https://download.qt.io/official_releases/qt/" + $version_base + "/" + $version + "/single/qt-everywhere-src-" + $version + ".zip"
 $qt_archive_file = $pwd.Path + "\qt-" + $version + ".zip"
 $qt_src_base_folder = $pwd.Path + "\qt-everywhere-src-" + $version
@@ -63,6 +64,9 @@ cp "$openssl_include_folder\openssl" "$prefix_folder\include\" -Recurse
 
 cp "$mysql_lib_folder\mariadbclient.lib" "$prefix_folder\lib\"
 cp "$zlib_base_folder\zlib.lib" "$prefix_folder\lib\"
+
+# Copy qt.conf.
+cp "$base_folder\qt.conf" "$prefix_folder\bin\"
 
 # Create final archive.
 & "$tools_folder\7za.exe" a -t7z "${prefix_base_folder}.7z" "$prefix_folder" -mmt -mx9
