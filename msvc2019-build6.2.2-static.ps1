@@ -49,7 +49,7 @@ cd $build_folder
 $env:ZLIB_ROOT = "$zlib_base_folder"
 $env:OPENSSL_LIBS = "-lUser32 -lAdvapi32 -lGdi32 -llibcrypto -llibssl"
 
-& "$qt_src_base_folder\configure.bat" -debug-and-release -opensource -confirm-license -opengl desktop -no-dbus -no-icu -no-fontconfig -nomake examples -nomake tests -skip qt3d -skip qtactiveqt -skip qtcanvas3d -skip qtconnectivity -skip qtdatavis3d -skip qtdoc -skip qtgamepad -skip qtlocation -skip qtnetworkauth -skip qtpurchasing -skip qtremoteobjects -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtquick3d -skip qtvirtualkeyboard -skip qtwebview -skip qtscript -system-zlib -optimize-size -static -static-runtime -ltcg -prefix $prefix_folder -openssl-linked -- -DOPENSSL_ROOT_DIR="$openssl_base_folder" -DOPENSSL_INCLUDE_DIR="$openssl_include_folder" -DMySQL_INCLUDE_DIR="$mysql_include_folder" -DMySQL_LIBRARY="$mysql_lib"
+& "$qt_src_base_folder\configure.bat" -debug-and-release -relocatable -opensource -confirm-license -opengl desktop -no-dbus -no-icu -no-fontconfig -nomake examples -nomake tests -skip qt3d -skip qtactiveqt -skip qtcanvas3d -skip qtconnectivity -skip qtdatavis3d -skip qtdoc -skip qtgamepad -skip qtlocation -skip qtnetworkauth -skip qtpurchasing -skip qtremoteobjects -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtquick3d -skip qtvirtualkeyboard -skip qtwebview -skip qtscript -system-zlib -optimize-size -static -static-runtime -ltcg -prefix $prefix_folder -openssl-linked -- -DOPENSSL_ROOT_DIR="$openssl_base_folder" -DOPENSSL_INCLUDE_DIR="$openssl_include_folder" -DMySQL_INCLUDE_DIR="$mysql_include_folder" -DMySQL_LIBRARY="$mysql_lib"
 
 # Compile.
 cmake --build .
