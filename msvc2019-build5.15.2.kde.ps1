@@ -34,16 +34,23 @@ $postgre_lib_folder = "c:\Programy\PostgreSQL\lib"
 $postgre_bin_folder = "c:\Programy\PostgreSQL\bin"
 $postgre_lib = "$postgre_lib_folder\libpq.lib"
 
-# Clone Qt sources
-git clone --progress --verbose --branch kde/5.15 --single-branch $qt_sources_url $qt_src_base_folder
-cd $qt_src_base_folder
+if (-not (Test-Path -Path $qt_src_base_folder -PathType Container)) {
+    # Clone Qt sources
+    git clone --progress --verbose --branch kde/5.15 --single-branch $qt_sources_url $qt_src_base_folder
+    cd $qt_src_base_folder
 
-# Remove Qt6 sub-modules
-rm -r -fo qtcanvas3d, qtdocgallery, qtfeedback, qtpim, qtqa, qtrepotools, qtsystems
+    # Remove Qt6 sub-modules
+    rm -r -fo qtcanvas3d, qtdocgallery, qtfeedback, qtpim, qtqa, qtrepotools, qtsystems
 
-# Switch sub-modules to kde/5.15 branch
-git submodule update --init --recursive --progress
-git submodule foreach --recursive "git checkout kde/5.15 || true"
+    # Switch sub-modules to kde/5.15 branch
+    git submodule update --init --recursive --progress
+    git submodule foreach --recursive "git checkout kde/5.15 || true"
+} else {
+    # Pull updates
+    cd $qt_src_base_folder
+    git pull --rebase --autostash
+    git submodule update --recursive --progress
+}
 
 cd ..
 $ProgressPreference = 'SilentlyContinue'
