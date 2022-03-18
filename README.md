@@ -7,15 +7,14 @@ This is attempt to build Qt 5/6 libraries in minimalistic mode. Output binaries 
 
 ## How this differs from official Qt Windows binaries?
 Well, there are some differences:
-
 * **all new dynamic builds include slimmed version of QtWebEngine !!!,**
 * these binaries are compiled with ~~MinGW-w64 or~~ **MSVC2019** toolchain with latest updates and are **x64**,
 * **some features and modules are disabled**, which makes dependency tree smaller (details are specified in description of each release),
-* Qt 5.15+ is automatically relocatable but `qtbinpatcher.exe` is bundled too,
+* Qt 5.15+ is automatically relocatable,
 * debug/release builds are available,
 * latest manually compiled OpenSSL libraries are used,
 * allmost all 3rd-party libs used by Qt are compiled directly into libraries,
-* link-time optimizations (`/LTCG` and `/GL`) are enabled in MSVC2019 static builds.
+* link-time optimizations (`/LTCG` and `/GL`) are enabled in static builds.
 
 ## How to use
 1. Install Visual Studio 2019 or just Build Tools.
