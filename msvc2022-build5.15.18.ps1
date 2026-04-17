@@ -31,11 +31,6 @@ $openssl_bin_folder = $openssl_base_folder + "\bin"
 $mysql_include_folder = "c:\Programy\MariaDB\include\mysql"
 $mysql_lib_folder = "c:\Programy\MariaDB\lib"
 
-$postgre_include_folder = "c:\Programy\PostgreSQL\include"
-$postgre_lib_folder = "c:\Programy\PostgreSQL\lib"
-$postgre_bin_folder = "c:\Programy\PostgreSQL\bin"
-$postgre_lib = "$postgre_lib_folder\libpq.lib"
-
 # Download Qt sources, unpack.
 $AllProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
 [System.Net.ServicePointManager]::SecurityProtocol = $AllProtocols
@@ -48,7 +43,7 @@ Invoke-WebRequest -Uri $qt_sources_url -OutFile $qt_archive_file
 mkdir $build_folder
 cd $build_folder
 
-& "$qt_src_base_folder\configure.bat" -no-iconv -no-dbus -no-fontconfig -no-freetype -qt-harfbuzz -qt-doubleconversion -nomake examples -nomake tests -skip qtactiveqt -skip qtcanvas3d -skip qtconnectivity -skip qtdatavis3d -skip qtdoc -skip qtgamepad -skip qtlocation -skip qtnetworkauth -skip qtpurchasing -skip qtremoteobjects -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwebview -skip qtscript -skip qtwebengine -skip qtwebchannel -skip qtquick3d -skip qt3d -skip qtquicktimeline -skip qtquickcontrols2 -skip qtquickcontrols -skip qtlottie -debug-and-release -opensource -confirm-license -platform win32-msvc2017 -opengl desktop  -mp -optimize-size -shared -prefix $prefix_folder -openssl-linked -I $mysql_include_folder -L $mysql_lib_folder MYSQL_LIBS="-llibmariadb" -I $postgre_include_folder -L $postgre_lib_folder  -I $openssl_include_folder -L $openssl_libs_folder OPENSSL_LIBS="-lUser32 -lAdvapi32 -lGdi32 -llibcrypto -llibssl"
+& "$qt_src_base_folder\configure.bat" -no-iconv -no-dbus -no-fontconfig -no-freetype -qt-harfbuzz -qt-doubleconversion -nomake examples -nomake tests -skip qtactiveqt -skip qtcanvas3d -skip qt3d -skip qtquick3d -skip qtconnectivity -skip qtdatavis3d -skip qtdoc -skip qtgamepad -skip qtlocation -skip qtnetworkauth -skip qtpurchasing -skip qtremoteobjects -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwebview -skip qtscript -no-feature-webengine-v8-snapshot-support -no-feature-webengine-geolocation -no-feature-webengine-webchannel -no-feature-webengine-proprietary-codecs -no-feature-webengine-kerberos -no-feature-webengine-spellchecker -no-feature-webengine-webrtc -no-feature-webengine-sanitizer -no-feature-webengine-ui-delegates -no-feature-webengine-testsupport -debug-and-release -mp -opensource -confirm-license -platform win32-msvc -opengl dynamic -shared -prefix $prefix_folder -openssl-linked -I $mysql_include_folder -L $mysql_lib_folder MYSQL_LIBS="-llibmariadb" -I $openssl_include_folder -L $openssl_libs_folder OPENSSL_LIBS="-lUser32 -lAdvapi32 -lGdi32 -llibcrypto -llibssl"
 
 # Compile.
 nmake
@@ -68,41 +63,21 @@ cp "$mysql_lib_folder\libmaria*.pdb" "$prefix_folder\bin\"
 cp "$mysql_lib_folder\libmaria*.lib" "$prefix_folder\lib\"
 cp "$mysql_include_folder\*" "$prefix_folder\include\mysql" -Recurse
 
-mkdir "$prefix_folder\include\psql"
-
-cp "$postgre_lib_folder\libpq.lib" "$prefix_folder\lib\"
-cp "$postgre_lib_folder\libintl.lib" "$prefix_folder\lib\"
-cp "$postgre_lib_folder\libiconv.lib" "$prefix_folder\lib\"
-cp "$postgre_lib_folder\zlib.lib" "$prefix_folder\lib\"
-cp "$postgre_bin_folder\libpq.dll" "$prefix_folder\bin\"
-cp "$postgre_bin_folder\libintl-9.dll" "$prefix_folder\bin\"
-cp "$postgre_bin_folder\libiconv-2.dll" "$prefix_folder\bin\"
-cp "$postgre_bin_folder\zlib1.dll" "$prefix_folder\bin\"
-cp "$postgre_bin_folder\libwinpthread*.dll" "$prefix_folder\bin\"
-cp "$postgre_bin_folder\libssl*.dll" "$prefix_folder\bin\"
-cp "$postgre_bin_folder\libcrypto*.dll" "$prefix_folder\bin\"
-cp "$postgre_include_folder\*" "$prefix_folder\include\psql" -Recurse
-
 # Fixup OpenSSL DLL paths and MySQL paths.
 $openssl_libs_folder_esc = $openssl_libs_folder -replace '\\','\\'
 $mysql_lib_folder_esc = $mysql_lib_folder -replace '\\','\\'
-$postgre_lib_folder_esc = $postgre_lib_folder -replace '\\','\\'
 
 gci -r -include "*.prl" $prefix_folder | foreach-object { $a = $_.fullname; (get-content $a).Replace("-L$openssl_libs_folder_esc ", '$$[QT_INSTALL_LIBS]/ ') | set-content $a }
 
 gci -r -include "*.prl" $prefix_folder | foreach-object { $a = $_.fullname; (get-content $a).Replace("-L$mysql_lib_folder_esc ", '$$[QT_INSTALL_LIBS]/ ') | set-content $a }
 
-gci -r -include "*.prl" $prefix_folder | foreach-object { $a = $_.fullname; (get-content $a).Replace("-L$postgre_lib_folder_esc ", '$$[QT_INSTALL_LIBS]/ ') | set-content $a }
-
-gci -r -include "*.prl" $prefix_folder | foreach-object { $a = $_.fullname; (get-content $a).Replace("$postgre_lib_folder_esc\\zlib.lib", '$$[QT_INSTALL_LIBS]/zlib.lib') | set-content $a }
-
 gci -r -include "*.prl" $prefix_folder | foreach-object { $a = $_.fullname; (get-content $a).Replace("-L$openssl_libs_folder_esc;", '$$[QT_INSTALL_LIBS]/;') | set-content $a }
 
 gci -r -include "*.prl" $prefix_folder | foreach-object { $a = $_.fullname; (get-content $a).Replace("-L$mysql_lib_folder_esc;", '$$[QT_INSTALL_LIBS]/;') | set-content $a }
 
-gci -r -include "*.prl" $prefix_folder | foreach-object { $a = $_.fullname; (get-content $a).Replace("-L$postgre_lib_folder_esc;", '$$[QT_INSTALL_LIBS]/;') | set-content $a }
-
 gci -r -include "*.prl" $prefix_folder | foreach-object { $a = $_.fullname; (get-content $a).Replace("-L$openssl_libs_folder_esc", '$$[QT_INSTALL_LIBS]/') | set-content $a }
+
+gci -r -include "*.prl" $prefix_folder | foreach-object { $a = $_.fullname; (get-content $a).Replace("-L$mysql_lib_folder_esc", '$$[QT_INSTALL_LIBS]/') | set-content $a }
 
 # Create final archive.
 & "$tools_folder\7za.exe" a -t7z "${prefix_base_folder}.7z" "$prefix_folder" -mmt -mx9
